@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "airminal",
-  "description": "Use your airminal agent with all the tools you have in the browser",
+  "name": "Airminal Extension",
+  "description": "Your AI agent inside every chat tab — WhatsApp, Telegram, Discord, Slack, Gmail, and 7 more platforms",
   "version": "2.0.0",
   "icons": {
     "16": "icons/icon16.png",

@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — Platform Base
+ * Airminal Extension — Platform Base
  * 
  * Shared logic for all messaging platforms.
  * Each platform file (whatsapp.js, messenger.js, instagram.js) extends this.

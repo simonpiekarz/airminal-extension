@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — Outlook Web Platform
+ * Airminal Extension — Outlook Web Platform
  * 
  * Platform-specific selectors and hooks for outlook.office.com / outlook.live.com
  * Outlook uses React with data-* attributes and aria labels

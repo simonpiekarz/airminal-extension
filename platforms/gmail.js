@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — Gmail Platform v2
+ * Airminal Extension — Gmail Platform v2
  * 
  * Gmail DOM is heavily obfuscated. Uses multiple detection strategies:
  * 1. Row-based: tr.zA (inbox rows), .zE (unread flag)

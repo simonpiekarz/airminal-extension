@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — Telegram Web Platform
+ * Airminal Extension — Telegram Web Platform
  * 
  * Platform-specific selectors and hooks for web.telegram.org (K/A versions)
  * Telegram Web uses custom elements and data attributes

@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — Facebook Messenger Platform
+ * Airminal Extension — Facebook Messenger Platform
  * 
  * Platform-specific selectors and hooks for www.messenger.com
  * Messenger uses React with data-testid attributes

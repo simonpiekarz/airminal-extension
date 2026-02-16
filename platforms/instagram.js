@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — Instagram DM Platform
+ * Airminal Extension — Instagram DM Platform
  * 
  * Platform-specific selectors and hooks for www.instagram.com/direct/
  * Instagram DMs use React with similar patterns to Messenger

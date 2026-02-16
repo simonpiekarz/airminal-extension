@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — Popup Controller
+ * Airminal Extension — Popup Controller
  * 
  * All settings persisted in chrome.storage.local under 'airminalConfig'.
  * Endpoint is saved immediately on input change — survives enable/disable.

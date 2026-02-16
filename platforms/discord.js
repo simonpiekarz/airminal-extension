@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — Discord Platform
+ * Airminal Extension — Discord Platform
  * 
  * Platform-specific selectors and hooks for discord.com/channels
  * Discord uses React with id prefixes and aria labels

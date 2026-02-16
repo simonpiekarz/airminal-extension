@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — OF Platform
+ * Airminal Extension — OF Platform
  * 
  * Platform-specific selectors and hooks for onlyfans.com messaging
  * OF uses Angular/custom framework with specific class patterns

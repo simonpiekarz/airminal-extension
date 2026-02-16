@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — X/Twitter Auto-Poster
+ * Airminal Extension — X/Twitter Auto-Poster
  * 
  * Handles automated posting on x.com
  * Injected on all x.com pages.

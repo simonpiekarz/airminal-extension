@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — WhatsApp Web Platform
+ * Airminal Extension — WhatsApp Web Platform
  * 
  * Platform-specific selectors and hooks for web.whatsapp.com
  * Uses stable selectors: data-* attributes, aria roles, structural patterns

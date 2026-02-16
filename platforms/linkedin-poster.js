@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — LinkedIn Auto-Poster
+ * Airminal Extension — LinkedIn Auto-Poster
  * 
  * Handles automated posting on linkedin.com
  * Injected on all linkedin.com pages.

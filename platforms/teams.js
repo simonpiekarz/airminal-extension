@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — Microsoft Teams Platform
+ * Airminal Extension — Microsoft Teams Platform
  * 
  * Platform-specific selectors and hooks for teams.microsoft.com
  * Teams uses React with data-tid (test ID) attributes

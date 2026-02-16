@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — X (Twitter) DM Platform
+ * Airminal Extension — X (Twitter) DM Platform
  * 
  * Platform-specific selectors and hooks for x.com/messages
  * X uses React with data-testid attributes extensively

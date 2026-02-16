@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — Background Service Worker
+ * Airminal Extension — Background Service Worker
  * Manages config, sessions, and API calls for all platforms.
  */
 

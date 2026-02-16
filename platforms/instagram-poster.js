@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — Instagram Auto-Poster
+ * Airminal Extension — Instagram Auto-Poster
  * 
  * Handles automated posting on instagram.com
  * This script is injected on all instagram.com pages (not just /direct/).

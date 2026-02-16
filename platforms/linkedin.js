@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — LinkedIn Messaging Platform
+ * Airminal Extension — LinkedIn Messaging Platform
  * 
  * Platform-specific selectors and hooks for www.linkedin.com/messaging
  * LinkedIn uses Ember/React with specific class patterns and data attributes

@@ -1,5 +1,5 @@
 /**
- * Airminal Agent Bridge — Slack Platform
+ * Airminal Extension — Slack Platform
  * 
  * Platform-specific selectors and hooks for app.slack.com
  * Slack uses data-qa attributes and specific class patterns
