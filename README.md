@@ -48,35 +48,6 @@ A Chrome extension that injects your <a href='https://airminal.com'>airminal AI 
 7. Toggle on the master switch and enable your desired platforms
 8. Open a supported platform tab — the agent badge appears in the bottom-right corner
 
-## Agent Endpoint
-
-Your endpoint should accept POST requests with this body:
-
-```json
-{
-  "message": "Hey, what's the status on that project?",
-  "conversation_id": "conv_abc123",
-  "history": [
-    { "role": "user", "content": "Previous message", "ts": 1700000000 },
-    { "role": "assistant", "content": "Previous reply", "ts": 1700000001 }
-  ],
-  "metadata": {
-    "platform": "whatsapp",
-    "chat_name": "John Doe",
-    "timestamp": 1700000002
-  }
-}
-```
-
-And respond with any of these shapes:
-
-```json
-{ "response": "Sure, the project is on track!" }
-{ "reply": "..." }
-{ "text": "..." }
-{ "message": "..." }
-```
-
 ## Features
 
 - **Per-platform toggles** — enable/disable each platform independently
