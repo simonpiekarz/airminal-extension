@@ -2,7 +2,7 @@
 
 **Your AI agent inside every chat tab.**
 
-A Chrome extension that injects your AI agent directly into the messaging platforms you already use. Your agent reads incoming messages, generates replies, and types them back — all without leaving the browser tab.
+A Chrome extension that injects your <a href='https://airminal.com'>airminal AI agent</a> directly into the messaging platforms you already use. Your agent reads incoming messages, generates replies, and types them back — all without leaving the browser tab.
 
 ## Supported Platforms
 
