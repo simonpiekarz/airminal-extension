@@ -1,0 +1,160 @@
+{
+  "manifest_version": 3,
+  "name": "airminal",
+  "description": "Use your airminal agent with all the tools you have in the browser",
+  "version": "2.0.0",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "tabs",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://web.whatsapp.com/*",
+    "https://www.messenger.com/*",
+    "https://www.facebook.com/*",
+    "https://www.instagram.com/*",
+    "https://web.telegram.org/*",
+    "https://www.linkedin.com/*",
+    "https://x.com/*",
+    "https://twitter.com/*",
+    "https://app.slack.com/*",
+    "https://discord.com/*",
+    "https://teams.microsoft.com/*",
+    "https://mail.google.com/*",
+    "https://onlyfans.com/*",
+    "https://outlook.office.com/*",
+    "https://outlook.office365.com/*",
+    "https://outlook.live.com/*",
+    "https://app.airminal.com/*",
+    "https://*.airminal.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://web.whatsapp.com/*"],
+      "js": ["platforms/platform-base.js", "platforms/whatsapp.js"],
+      "css": ["css/overlay.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.messenger.com/*", "https://www.facebook.com/messages/*"],
+      "js": ["platforms/platform-base.js", "platforms/messenger.js"],
+      "css": ["css/overlay.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.instagram.com/direct/*"],
+      "js": ["platforms/platform-base.js", "platforms/instagram.js"],
+      "css": ["css/overlay.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.instagram.com/*"],
+      "js": ["platforms/instagram-poster.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://web.telegram.org/*"],
+      "js": ["platforms/platform-base.js", "platforms/telegram.js"],
+      "css": ["css/overlay.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.linkedin.com/messaging/*"],
+      "js": ["platforms/platform-base.js", "platforms/linkedin.js"],
+      "css": ["css/overlay.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.linkedin.com/*"],
+      "js": ["platforms/linkedin-poster.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://x.com/messages/*", "https://twitter.com/messages/*"],
+      "js": ["platforms/platform-base.js", "platforms/x_twitter.js"],
+      "css": ["css/overlay.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["platforms/x-poster.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://app.slack.com/*"],
+      "js": ["platforms/platform-base.js", "platforms/slack.js"],
+      "css": ["css/overlay.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://discord.com/channels/*"],
+      "js": ["platforms/platform-base.js", "platforms/discord.js"],
+      "css": ["css/overlay.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://teams.microsoft.com/*"],
+      "js": ["platforms/platform-base.js", "platforms/teams.js"],
+      "css": ["css/overlay.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["platforms/platform-base.js", "platforms/gmail.js"],
+      "css": ["css/overlay.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://onlyfans.com/my/chats/*", "https://onlyfans.com/messages/*"],
+      "js": ["platforms/platform-base.js", "platforms/of.js"],
+      "css": ["css/overlay.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://outlook.office.com/*", "https://outlook.office365.com/*", "https://outlook.live.com/*"],
+      "js": ["platforms/platform-base.js", "platforms/outlook.js"],
+      "css": ["css/overlay.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["css/*", "icons/*"],
+      "matches": [
+        "https://web.whatsapp.com/*",
+        "https://www.messenger.com/*",
+        "https://www.facebook.com/*",
+        "https://www.instagram.com/*",
+        "https://web.telegram.org/*",
+        "https://www.linkedin.com/*",
+        "https://x.com/*",
+        "https://twitter.com/*",
+        "https://app.slack.com/*",
+        "https://discord.com/*",
+        "https://teams.microsoft.com/*",
+        "https://mail.google.com/*",
+        "https://onlyfans.com/*",
+        "https://outlook.office.com/*",
+        "https://outlook.office365.com/*",
+        "https://outlook.live.com/*"
+      ]
+    }
+  ]
+}

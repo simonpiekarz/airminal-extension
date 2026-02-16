@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Airminal Agent</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0e0f13;
+      --surface: #16171d;
+      --surface-hover: #1c1d25;
+      --border: rgba(255,255,255,0.06);
+      --border-active: rgba(255,255,255,0.12);
+      --text: #e4e4e7;
+      --text-dim: #71717a;
+      --text-muted: #52525b;
+      --accent: #22c55e;
+      --accent-dim: rgba(34,197,94,0.12);
+      --accent-glow: rgba(34,197,94,0.25);
+      --warn: #f59e0b;
+      --error: #ef4444;
+      --radius: 10px;
+      --radius-sm: 7px;
+    }
+
+    body {
+      width: 380px;
+      min-height: 200px;
+      max-height: 600px;
+      overflow-y: auto;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    body::-webkit-scrollbar { width: 4px; }
+    body::-webkit-scrollbar-track { background: transparent; }
+    body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+    /* ── Header ── */
+    .header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .header-left { display: flex; align-items: center; gap: 10px; }
+    .header-logo {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px; color: #fff;
+      box-shadow: 0 2px 8px rgba(34,197,94,0.3);
+    }
+    .header-title { font-weight: 700; font-size: 15px; letter-spacing: -0.2px; }
+    .header-version { font-size: 10px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+
+    /* ── Master Toggle ── */
+    .master-toggle {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 18px;
+      background: var(--surface);
+      margin: 12px 14px 0;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .master-toggle:hover { background: var(--surface-hover); border-color: var(--border-active); }
+    .master-toggle.active { border-color: rgba(34,197,94,0.2); background: rgba(34,197,94,0.04); }
+    .master-toggle-label { flex: 1; font-weight: 600; font-size: 13.5px; }
+    .master-toggle-status { font-size: 11px; font-weight: 500; color: var(--text-muted); }
+    .master-toggle.active .master-toggle-status { color: var(--accent); }
+
+    /* ── Toggle Switch ── */
+    .toggle { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute; inset: 0; border-radius: 12px;
+      background: #27272a; border: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer; transition: all 0.25s;
+    }
+    .toggle-slider::after {
+      content: ''; position: absolute; top: 2px; left: 2px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #71717a; transition: all 0.25s;
+    }
+    .toggle input:checked + .toggle-slider {
+      background: var(--accent-dim); border-color: rgba(34,197,94,0.3);
+    }
+    .toggle input:checked + .toggle-slider::after {
+      transform: translateX(18px); background: var(--accent);
+      box-shadow: 0 0 8px rgba(34,197,94,0.4);
+    }
+
+    /* ── Section ── */
+    .section { padding: 12px 14px 0; }
+    .section-label {
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--text-muted); padding: 0 4px; margin-bottom: 8px;
+    }
+
+    /* ── Input ── */
+    .input-group { position: relative; }
+    .input-group input, .input-group textarea {
+      width: 100%; padding: 10px 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-family: 'JetBrains Mono', monospace; font-size: 12px;
+      outline: none; transition: all 0.2s;
+    }
+    .input-group input:focus, .input-group textarea:focus {
+      border-color: rgba(34,197,94,0.3);
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.08);
+    }
+    .input-group input::placeholder, .input-group textarea::placeholder { color: var(--text-muted); }
+    .input-hint { font-size: 11px; color: var(--text-muted); margin-top: 5px; padding: 0 2px; }
+    .input-saved {
+      position: absolute; top: 10px; right: 10px;
+      font-size: 10px; color: var(--accent); font-weight: 600;
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .input-saved.show { opacity: 1; }
+
+    /* ── Test Button ── */
+    .test-row { display: flex; gap: 8px; margin-top: 8px; }
+    .btn {
+      padding: 8px 16px; border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600;
+      cursor: pointer; border: 1px solid var(--border);
+      background: var(--surface); color: var(--text-dim);
+      transition: all 0.2s; flex: 1; text-align: center;
+    }
+    .btn:hover { background: var(--surface-hover); color: var(--text); border-color: var(--border-active); }
+    .btn-accent {
+      background: var(--accent-dim); color: var(--accent);
+      border-color: rgba(34,197,94,0.2);
+    }
+    .btn-accent:hover { background: rgba(34,197,94,0.18); }
+    .test-result {
+      margin-top: 6px; padding: 8px 12px;
+      border-radius: var(--radius-sm); font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      display: none; word-break: break-word; line-height: 1.6;
+    }
+    .test-result.ok { display: block; background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.15); color: #4ade80; }
+    .test-result.err { display: block; background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.15); color: #f87171; }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--border); margin: 14px 14px 0; }
+
+    /* ── Platform Accordions ── */
+    .platforms { padding: 0 14px 14px; }
+    .platform-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-top: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .platform-card.open { border-color: var(--border-active); }
+    .platform-card.platform-enabled { border-color: rgba(34,197,94,0.12); }
+
+    .platform-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px;
+      cursor: pointer; user-select: none;
+      transition: background 0.15s;
+    }
+    .platform-header:hover { background: var(--surface-hover); }
+
+    .platform-icon {
+      width: 28px; height: 28px; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 15px;
+    }
+    .platform-icon.whatsapp { background: rgba(37,211,102,0.12); color: #25d366; }
+    .platform-icon.messenger { background: rgba(0,132,255,0.12); color: #0084ff; }
+    .platform-icon.instagram { background: rgba(225,48,108,0.12); color: #e1306c; }
+    .platform-icon.telegram { background: rgba(38,166,226,0.12); color: #26a6e2; }
+    .platform-icon.linkedin { background: rgba(10,102,194,0.12); color: #0a66c2; }
+    .platform-icon.x_twitter { background: rgba(255,255,255,0.08); color: #e7e9ea; }
+    .platform-icon.slack { background: rgba(74,21,75,0.15); color: #e01e5a; }
+    .platform-icon.discord { background: rgba(88,101,242,0.12); color: #5865f2; }
+    .platform-icon.teams { background: rgba(80,80,200,0.12); color: #6264a7; }
+    .platform-icon.gmail { background: rgba(234,67,53,0.12); color: #ea4335; }
+    .platform-icon.of { background: rgba(0,174,240,0.12); color: #00aaf0; }
+    .platform-icon.outlook { background: rgba(0,120,212,0.12); color: #0078d4; }
+    .platform-icon.automation { background: rgba(168,85,247,0.12); color: #a855f7; }
+
+    .field select {
+      width: 100%; padding: 8px 12px;
+      background: rgba(0,0,0,0.2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      outline: none; transition: all 0.2s; cursor: pointer;
+      -webkit-appearance: none; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 10px center;
+    }
+    .field select:focus { border-color: rgba(255,255,255,0.15); }
+    .field select option { background: var(--bg); color: var(--text); }
+
+    .auto-trigger-row { display: flex; gap: 8px; margin-top: 10px; }
+    .auto-status {
+      margin-top: 8px; padding: 6px 10px;
+      border-radius: var(--radius-sm); font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(168,85,247,0.06); border: 1px solid rgba(168,85,247,0.12);
+      color: #c084fc;
+    }
+    .auto-status.idle { color: var(--text-muted); background: rgba(255,255,255,0.02); border-color: var(--border); }
+
+    .platform-name { flex: 1; font-weight: 600; font-size: 13px; }
+    .platform-status {
+      font-size: 10px; font-weight: 500; color: var(--text-muted);
+      margin-right: 4px;
+    }
+    .platform-card.platform-enabled .platform-status { color: var(--accent); }
+
+    .platform-chevron {
+      width: 16px; height: 16px; color: var(--text-muted);
+      transition: transform 0.25s; flex-shrink: 0;
+    }
+    .platform-card.open .platform-chevron { transform: rotate(180deg); }
+
+    .platform-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .platform-card.open .platform-body { max-height: 500px; }
+
+    .platform-content {
+      padding: 2px 14px 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .field { margin-top: 10px; }
+    .field-label { font-size: 11px; font-weight: 600; color: var(--text-dim); margin-bottom: 4px; }
+    .field input, .field textarea {
+      width: 100%; padding: 8px 12px;
+      background: rgba(0,0,0,0.2); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+      outline: none; transition: all 0.2s;
+    }
+    .field input:focus, .field textarea:focus {
+      border-color: rgba(255,255,255,0.15);
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.03);
+    }
+    .field input::placeholder, .field textarea::placeholder { color: var(--text-muted); font-size: 11px; }
+    .field textarea { resize: vertical; min-height: 48px; font-family: 'DM Sans', sans-serif; font-size: 12px; }
+
+    .field-row { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+    .field-row-label { font-size: 12px; color: var(--text-dim); }
+
+    .field-hint { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 10px 18px 14px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-sessions { font-size: 11px; color: var(--text-muted); }
+    .footer-sessions span { color: var(--text-dim); font-weight: 600; }
+    .footer-link {
+      font-size: 11px; color: var(--text-muted); text-decoration: none;
+      cursor: pointer; transition: color 0.2s;
+    }
+    .footer-link:hover { color: var(--text); }
+    .footer-brand { justify-content: center; border-top: none; padding-top: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-logo">A</div>
+      <div>
+        <div class="header-title">Airminal Agent</div>
+        <div class="header-version">v2.0.0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Master Toggle -->
+  <div class="master-toggle" id="masterToggle">
+    <div class="master-toggle-label">Agent</div>
+    <div class="master-toggle-status" id="masterStatus">OFF</div>
+    <label class="toggle" onclick="event.stopPropagation()">
+      <input type="checkbox" id="enabledToggle">
+      <div class="toggle-slider"></div>
+    </label>
+  </div>
+
+  <!-- Endpoint -->
+  <div class="section">
+    <div class="section-label">Agent Endpoint</div>
+    <div class="input-group">
+      <input type="url" id="endpoint" placeholder="https://youragent.airminal.com/api/" spellcheck="false" autocomplete="off">
+      <div class="input-saved" id="endpointSaved">Saved ✓</div>
+    </div>
+    <div class="input-hint">Your Airminal agent's text API endpoint</div>
+    <div class="test-row">
+      <button class="btn btn-accent" id="testBtn">Test Connection</button>
+    </div>
+    <div class="test-result" id="testResult"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Platforms -->
+  <div class="section">
+    <div class="section-label">Platforms</div>
+  </div>
+  <div class="platforms" id="platformsContainer">
+    <!-- Rendered by JS -->
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Automations -->
+  <div class="section">
+    <div class="section-label">Automations</div>
+  </div>
+  <div class="platforms" id="automationsContainer">
+    <!-- Rendered by JS -->
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-sessions">Sessions: <span id="sessionCount">0</span></div>
+    <a class="footer-link" id="clearSessions">Clear sessions</a>
+  </div>
+  <div class="footer footer-brand">
+    <a class="footer-link" href="https://airminal.com" target="_blank">Powered by Airminal</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
