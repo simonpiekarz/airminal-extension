@@ -4,6 +4,8 @@
 
 A Chrome extension that injects your <a href='https://airminal.com'>airminal AI agent</a> directly into the messaging platforms you already use. Your agent reads incoming messages, generates replies, and types them back — all without leaving the browser tab.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LuypzB_vzPc?si=UWD-5MH-kSeMBr1M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ## Supported Platforms
 
 | Platform | Auto-Reply | Auto-Post |
